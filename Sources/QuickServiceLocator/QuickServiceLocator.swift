@@ -8,7 +8,7 @@
 import Foundation
 
 /// Loading way of a registered service
-enum LocatingMode {
+public enum LocatingMode {
     /// load a new instance of the service each time
     case newInstance
     /// load the service in a singleton when it's required
@@ -17,7 +17,7 @@ enum LocatingMode {
     case sharedInstance
 }
 
-struct QuickServiceLocator {
+public struct QuickServiceLocator {
     
     // MARK: - Properties
     
@@ -38,7 +38,7 @@ struct QuickServiceLocator {
     ///   - type: The type of the service
     ///   - mode: The behavior of the registered service (default: lazySharedInstance)
     ///   - factory: the `constructor` of the service
-    static func register<T>(_ type: T.Type,
+    public static func register<T>(_ type: T.Type,
                             mode: LocatingMode = .lazySharedInstance,
                             _ factory: @autoclosure @escaping () -> T) {
         self.factories[ObjectIdentifier(type)] = (mode, factory)
@@ -56,7 +56,7 @@ struct QuickServiceLocator {
     /// ```
     /// - Remark: Resolving an unregistered service will make the application crash
     /// - Returns: The instance of the service
-    static func locate<T>() -> T {
+    public static func locate<T>() -> T {
         return locate(T.self)
     }
 
@@ -70,7 +70,7 @@ struct QuickServiceLocator {
     /// - Parameter type: The type of the service
     /// - Returns: The instance of the service
     @discardableResult
-    static func locate<T>(_ type: T.Type) -> T {
+    public static func locate<T>(_ type: T.Type) -> T {
         let key = ObjectIdentifier(type)
         guard let storedFactory = factories[key] else {
             fatalError("factory: \(type) is not registered")
@@ -106,7 +106,7 @@ struct QuickServiceLocator {
     /// ```
     ///
     /// The factory and the instance if present will be remove from the container
-    static func unregister<T>(_ type: T.Type) {
+    public static func unregister<T>(_ type: T.Type) {
         let key = ObjectIdentifier(type)
         factories.removeValue(forKey: key)
         sharedInstances.removeValue(forKey: key)
@@ -114,7 +114,7 @@ struct QuickServiceLocator {
     
     /// Check if a service is registerd
     /// - Parameter type: the registered service to check
-    static func isRegister<T>(_ type: T.Type) -> Bool {
+    public static func isRegister<T>(_ type: T.Type) -> Bool {
         let key = ObjectIdentifier(type)
         return factories[key] != nil
     }
@@ -133,7 +133,7 @@ struct QuickSL<Instance> {
     /// be complient with the targeted **Instance type**
     ///
     /// You can change the way the service is loaded by changing the *mode* : by default **lazySharedInstance**
-    init(register: @autoclosure @escaping () -> Instance,
+    public init(register: @autoclosure @escaping () -> Instance,
          mode: LocatingMode = .lazySharedInstance) {
         QuickServiceLocator.register(Instance.self, mode: mode, register() )
     }
@@ -144,7 +144,7 @@ struct QuickSL<Instance> {
     
     /// Resolve service from the return type
     /// - Remark: Resolving an unregistered service will make the application crash
-    static func resolve() -> Instance {
+    public static func resolve() -> Instance {
         QuickServiceLocator.locate()
     }
 }
