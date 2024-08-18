@@ -1,6 +1,5 @@
 //
 //  QuickServiceLocator.swift
-//  QuickServiceLocator
 //
 //  Created by François Dabonot on 18/01/2024.
 //
@@ -117,34 +116,5 @@ public struct QuickServiceLocator {
     public static func isRegister<T>(_ type: T.Type) -> Bool {
         let key = ObjectIdentifier(type)
         return factories[key] != nil
-    }
-}
-
-/// When no parmeter : **Resolve** a service which must be complient with **Instance type**.
-/// When register parameter used : **Register** a service with an instance from a factory
-/// which must be complient with the targeted **Instance type**
-@propertyWrapper
-struct QuickSL<Instance> {
-    
-    /// **Resolve** a service which must be complient with **Instance type**
-    init() {}
-        
-    /// **Register** a service with an instance from a factory which must
-    /// be complient with the targeted **Instance type**
-    ///
-    /// You can change the way the service is loaded by changing the *mode* : by default **lazySharedInstance**
-    public init(register: @autoclosure @escaping () -> Instance,
-         mode: LocatingMode = .lazySharedInstance) {
-        QuickServiceLocator.register(Instance.self, mode: mode, register() )
-    }
-    
-    var wrappedValue: Instance {
-        QuickServiceLocator.locate()
-    }
-    
-    /// Resolve service from the return type
-    /// - Remark: Resolving an unregistered service will make the application crash
-    public static func resolve() -> Instance {
-        QuickServiceLocator.locate()
     }
 }
