@@ -40,7 +40,7 @@ QuickServiceLocator.isRegister(DummyServiceProtocol.self)
 
 ## Behavior
 
-By default, every services are registered in a `lazySharedInstance` mode, it means the `DummyService` will be created during the resolving step.
+By default, every services are registered in a `lazySharedInstance` mode, it means the `DummyService` will be created during the resolving step as a singleton.
 
 This behavior can be set during the registering step.
 
