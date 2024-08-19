@@ -2,6 +2,12 @@
 
 A quick service locator for the Apple platform, made to be the easiest and simplest way to use
 
+## Installation
+
+Swift package manager 
+
+`https://github.com/frankois944/QuickServiceLocator.git`
+
 ## The quick way
 
 ### Register/resolve from a property wrapper
