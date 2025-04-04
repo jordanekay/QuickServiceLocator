@@ -1,5 +1,7 @@
 # QuickServiceLocator
 
+[![Swift](https://github.com/frankois944/QuickServiceLocator/actions/workflows/swift.yml/badge.svg)](https://github.com/frankois944/QuickServiceLocator/actions/workflows/swift.yml)
+
 A quick service locator for the Apple platform, made to be the easiest and simplest way to use
 
 ## Installation
